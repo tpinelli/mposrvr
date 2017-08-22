@@ -1,0 +1,60 @@
+/* ************************
+   custom.css
+   Arquivo CSS de customização ao bootstrap basico
+** ***********************/
+
+
+/* Barra de navegação */
+.navbar {
+
+    background: #020031; /* Old browsers */
+    background: -moz-linear-gradient(45deg,  #020031 0%, #0097CD 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left bottom, right top, color-stop(0%,#020031), color-stop(100%,#0097CD)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(45deg,  #020031 0%,#0097CD 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(45deg,  #020031 0%,#0097CD 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(45deg,  #020031 0%,#0097CD 100%); /* IE10+ */
+    background: linear-gradient(45deg,  #020031 0%,#0097CD 100%); /* W3C */
+
+    font-size: 13px;
+    color: white;
+    border-style: none;
+}
+
+/* Menu da barra de navegação */
+.navbar .dropdown .dropdown-toggle {
+    color: #F0F0F0;
+    font-weight: bold;
+}
+
+.navbar .dropdown .dropdown-toggle:hover{
+    color: #82bc00;
+
+}
+
+/* Título do site */
+.navbar .navbar-brand {
+  padding-right: 0;
+  padding-left: 0;
+  margin-left: 20px;
+  float: right;
+  font-weight: bold;
+  color: #0097CD;
+  text-shadow: 0 1px 0 rgba(255,255,255,.1), 0 0 30px rgba(255,255,255,.125);
+  -webkit-transition: all .2s linear;
+     -moz-transition: all .2s linear;
+          transition: all .2s linear;
+
+}
+
+/* logotipo na barra de navegação */
+.navbar .navbar-collapse img {
+      height:30px;
+      vertical-align:right;
+      float: right;
+      margin-top: 8px;
+}
+
+/* imagem na página inicial, para ocupar todo o div */
+.row .col-md-4 img {
+      width: 100%;
+}
