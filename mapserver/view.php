@@ -125,9 +125,6 @@
     $(window).on("resize", applyMargins);
 
 
-
-
-
   });
 
 
@@ -189,12 +186,12 @@
      <!-- botão de download png
      <div class="pull-left main-btn">
       <a id="export-png" class="btn btn-default" download="map.png"><i class="fa fa-download"></i> Download PNG</a>
-    </div>
+    </div>      -->
 
      <div class="mini-submenu mini-submenu-left pull-left">
        <i class="fa fa-chevron-right"></i>
      </div>
-     -->
+
 
 
 
