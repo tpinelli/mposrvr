@@ -68,6 +68,15 @@
                     <li><a href="<?php echo BASEURL; ?>camadas/add.php">Nova Camada</a></li>
                 </ul>
             </li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    Agrupadores <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="<?php echo BASEURL; ?>agrpd">Gerenciar Agrupadores</a></li>
+                    <li><a href="<?php echo BASEURL; ?>agrpd/add.php">Novo Agrupador</a></li>
+                </ul>
+            </li>
           </ul>
 
           <img src="/imagens/mpobc_semfundo.png" class="float-right center-block" alt="logo_mapio">

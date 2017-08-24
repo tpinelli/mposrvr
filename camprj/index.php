@@ -33,7 +33,8 @@
 		<th>Camada</th>
 		<th>Legenda</th>
 		<th>Descrição</th>
-		<th width="15%">Opções</th>
+    <th>Agrupador</th>
+		<th width="18%">Opções</th>
 	</tr>
 </thead>
 <tbody>
@@ -43,7 +44,9 @@
 		<td><?php echo $camprj['mps03_nm_camada']; ?></td>
 		<td><?php echo $camprj['mps03_ds_legenda']; ?></td>
 		<td><?php echo $camprj['mps03_ds_camada']; ?></td>
+    <td><?php echo listAgrpd($camprj['mps04_cd_agrpd']); ?></td>
 		<td class="actions text-right">
+      <a href="addAgrpd.php?mps01_cd_prj=<?php echo $camprj['mps01_cd_prj'];?>&cdAgrpd=<?php echo $camprj['mps03_cd_camada'];?>" class="btn btn-sm btn-default"><i class="fa fa-plus-square-o"></i></a>
 			<a href="up.php?proj=<?php echo $camprj['mps01_cd_prj']; ?>&ordem=<?php echo $camprj['mps04_nm_ordem']; ?>&camada=<?php echo $camprj['mps03_cd_camada']; ?>" class="btn btn-sm btn-info" <?php if ($camprj['mps04_nm_ordem']==1): ?> DISABLED <?php endif ?>><i class="fa fa-caret-up"></i></a>
 			<a href="down.php?proj=<?php echo $camprj['mps01_cd_prj']; ?>&ordem=<?php echo $camprj['mps04_nm_ordem']; ?>&camada=<?php echo $camprj['mps03_cd_camada']; ?>" class="btn btn-sm btn-info" <?php if ($camprj['mps04_nm_ordem']==count($camprjs)): ?> DISABLED <?php endif ?>><i class="fa fa-caret-down"></i></a>
       <a href="#" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete-modal" data-customer="<?php echo $camprj['mps01_cd_prj']; ?>" data-ordem="<?php echo $camprj['mps04_nm_ordem']; ?>">

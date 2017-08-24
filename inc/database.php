@@ -83,7 +83,7 @@ function find_cam_prj( $id = null) {
 
 
 	try {
-	    $sql = "select mps03_ur_camada, mps03_ly_camada, mps03_nm_camada, mps01_cd_prj, mps04_nm_ordem, mps03_ds_legenda, mps03_camadas.mps03_cd_camada, mps03_ds_camada
+	    $sql = "select mps03_ur_camada, mps03_ly_camada, mps03_nm_camada, mps01_cd_prj, mps04_nm_ordem, mps03_ds_legenda, mps03_camadas.mps03_cd_camada, mps03_ds_camada, mps04_cd_agrpd
 			  from mapsrv.mps03_camadas, mapsrv.mps04_prj_cam
 			 where mapsrv.mps04_prj_cam.mps01_cd_prj = '" . $id . "'
 			   and mapsrv.mps03_camadas.mps03_cd_camada = mapsrv.mps04_prj_cam.mps03_cd_camada
@@ -185,12 +185,12 @@ function save($table = null, $data = null) {
 /**
  *  Atualiza um registro em uma tabela, por ID
  */
-function update($table = null, $id = 0, $data = null, $chave = null) {
+function update($table = null, $id = 0, $data = null, $chave = null, $id2 = null, $chave2 = null) {
   $database = open_database();
   $items = null;
 
   foreach ($data as $key => $value) {
-    $items .= trim($key, "'") . "='$value',";
+		     $items .= trim($key, "'") . "='$value',";
   }
 
   // remove a ultima virgula
@@ -199,10 +199,58 @@ function update($table = null, $id = 0, $data = null, $chave = null) {
   $sql .= " SET $items";
 
 	if (is_string($id)) :
-		               $sql .= " WHERE " . $chave . "= '" . $id . "';";
+		               $sql .= " WHERE " . $chave . "= '" . $id . "'";
                  else :
-									 $sql .= " WHERE " . $chave . "=" . $id . ";";
+									 $sql .= " WHERE " . $chave . "=" . $id;
 	endif;
+
+	if ($id2): $sql .= " AND " . $chave2 . " = " . $id2; endif;
+
+	$sql .= ';';
+
+
+
+  try {
+    $result = pg_query($database, $sql);
+
+		if($result) {
+			$_SESSION['message'] = 'Registro atualizado com sucesso.';
+	    $_SESSION['type'] = 'success';
+		} else {
+			$_SESSION['message'] = pg_last_error($database);
+			$_SESSION['type'] = 'danger';
+		}
+
+  } catch (Exception $e) {
+    $_SESSION['message'] = 'Nao foi possivel realizar a operacao.';
+    $_SESSION['type'] = 'danger';
+  }
+  close_database($database);
+}
+
+/**
+* seta um campo na tabela como NULO
+*/
+function update_null($table = null, $id = 0, $campo = null, $chave = null, $id2 = null, $chave2 = null) {
+
+	$database = open_database();
+
+
+  // remove a ultima virgula
+  $sql  = "UPDATE " . $table;
+  $sql .= " SET " . $campo . '=NULL ';
+
+	if (is_string($id)) :
+		               $sql .= " WHERE " . $chave . "= '" . $id . "'";
+                 else :
+									 $sql .= " WHERE " . $chave . "=" . $id;
+	endif;
+
+	if ($id2): $sql .= " AND " . $chave2 . " = " . $id2; endif;
+
+	$sql .= ';';
+
+  
 
   try {
     $result = pg_query($database, $sql);

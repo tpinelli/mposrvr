@@ -151,13 +151,26 @@
              <div class="panel-collapse collapse in">
                <div class="panel-body list-group" id="layers">
                  <ul class="list-group">
+                 <?php $ds_agrpd = null; ?>
+                 <?php $an_agrpd = null; ?>
+                 <?php $nested = null; ?>
                  <?php foreach ($camadas as $camada) :?>
+                   <?php $ds_agrpd = listAgrpd($camada['mps04_cd_agrpd']); ?>
+                   <?php if($ds_agrpd != $an_agrpd) { ?>
+                   <ul class="list-group">
+                     <li class="list-group-item">
+                       <strong> <?php echo $ds_agrpd; ?> </strong>
+                     </li>
+                     <?php $an_agrpd = $ds_agrpd; ?>
+                   <?php } ?>
                    <li class="list-group-item">
                      <input id="<?php echo $camada['mps03_nm_camada'];?>" class="form-check-input" type="checkbox" checked/>
                      <img src="<?php echo $camada['mps03_ur_camada']; ?>?VERSION=1.1.0&REQUEST=GetLegendGraphic&LAYER=<?php echo $camada['mps03_ly_camada'];?>&WIDTH=16&HEIGHT=16&FORMAT=image/png">
                      <?php echo $camada['mps03_ds_legenda']; ?>
                    </li>
+
                  <?php endforeach; ?>
+                 </ul>
                </div>
              </div>
            </div>

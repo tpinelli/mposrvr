@@ -46,6 +46,13 @@ function delete($id = null) {
   header('location: index.php');
 }
 
+function listAgrpd($id = null){
+	global $dsAgrpd;
+	if(!is_null($id)) {
+    $agrpd = find( 'mapsrv.mps05_agrpd', $id, 'mps05_cd_agrpd');
+	  return $agrpd['mps05_lg_agrpd'];
+	}
+}
 
 
 ?>
