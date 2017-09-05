@@ -31,6 +31,16 @@ define('HEADER_TEMPLATE', ABSPATH . 'inc/header.php');
 define('HEADER_TEMPLATE_FULL', ABSPATH . 'inc/header-full.php');
 define('FOOTER_TEMPLATE', ABSPATH . 'inc/footer.php');
 
+/** chaves apis de desenvolvimento **/
+define('GOOGLE_API', 'AIzaSyDgb_oO59XzVV7PkxUlPRjhy7XyXoWRpNk');
+define('BING_API', 'y6pv7g8PpkZ6Te2uldDM~87tLBHHyig0oTltPVn0Zgg~AimjkBSsPcR4J1cG3j1mLqdimI1YGNIaAfOV3ydMY2mayLU_o_zsNNJfUgl_AIOw');
+
+/** Configurações de autorização */
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS');
+header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
+
+
 /** inicia a sessão **/
 // ===>>> verificar se deve ficar aqui ou na página INDEX do projeto...
 session_start();

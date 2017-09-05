@@ -39,7 +39,11 @@ function find( $table = null, $id = null, $chave = null, $id2 = null, $chave2 = 
 	    $result = pg_query($database, $sql);
 
 	    if (pg_num_rows($result) > 0) {
-				$found = pg_fetch_array($result);
+				if (pg_num_rows($result) == 1) {
+					$found = pg_fetch_array($result);
+				} else {
+					$found = pg_fetch_all($result);
+				}
 
 	    } else {
 				$_SESSION['message'] = 'Registro não encontrado.';
@@ -250,7 +254,7 @@ function update_null($table = null, $id = 0, $campo = null, $chave = null, $id2 
 
 	$sql .= ';';
 
-  
+
 
   try {
     $result = pg_query($database, $sql);
