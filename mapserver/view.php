@@ -5,7 +5,14 @@
     global $camada;
     global $campos;
     global $campo;
-  	$project = find('mapsrv.mps01_projetos', $_GET['cdprj'], 'mps01_cd_prj');
+
+    $projetos = find('mapsrv.mps01_projetos', $_GET['cdprj'], 'mps01_cd_prj');
+
+    foreach ($projetos as $projeto) :
+      $project = $projeto;
+    endforeach;
+
+    //$project = find('mapsrv.mps01_projetos', $_GET['cdprj'], 'mps01_cd_prj');
 
     $camadas = find_cam_prj($_GET['cdprj']);
     // $camadas = find_all('mapsrv.mps03_camadas');
@@ -77,6 +84,7 @@
 <script src="https://openlayers.org/en/v4.3.1/build/ol.js"></script>
 <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
 <script src="/js/reqwest.js"></script>
+<script src="/js/FileSaver.js"></script>
 
 
 <script type="text/javascript">
@@ -200,10 +208,10 @@
        </div>
      </div>
 
-     <!-- botão de download png
+     <!-- botão de download png -->
      <div class="pull-left main-btn">
       <a id="export-png" class="btn btn-default" download="map.png"><i class="fa fa-download"></i> Download PNG</a>
-    </div>      -->
+    </div>
 
 
      <!-- div com menu encolhido -->
@@ -266,8 +274,24 @@
    applyInitialUIState();
    applyMargins();
 
+  /*
+   var exportPNGElement = document.getElementById('export-png');
 
-
+         if ('download' in exportPNGElement) {
+           exportPNGElement.addEventListener('click', function() {
+             map.once('postcompose', function(event) {
+               var canvas = event.context.canvas;
+               exportPNGElement.href = canvas.toDataURL('image/png');
+             });
+             map.renderSync();
+           }, false);
+         } else {
+           var info = document.getElementById('no-download');
+           /**
+            * display error message
+            *
+           info.style.display = '';
+         } */
 
    //===> AJAX
    $(document).ready(function() {
@@ -290,6 +314,8 @@
 
 
      // ==> Função de clique no DOWNLOAD PNG
+      var exportPNGElement = document.getElementById('export-png');
+
      $('#export-png').click(function() {
        map.once('postcompose', function(event) {
          var canvas = event.context.canvas;
@@ -297,6 +323,11 @@
        });
        map.renderSync();
      });
+
+     $('#myTabs a').click(function (e) {
+        e.preventDefault()
+        $(this).tab('show')
+     })
 
 
    });
@@ -315,6 +346,12 @@
            // variável criada para navegar no array das camadas_ar
            var idlay = 0;
            var ly_camada;
+
+           // variaveis criadas para incluir no div de propriedades
+           var titulo = '<ul class="nav nav-tabs" id="myTabs" role="tablist">';
+           var corpo = '<div class="tab-content">';
+           var class_active = ' class="active"';
+           var active = ' in active';
 
 
            map.getLayers().forEach(function (lyr) {
@@ -338,35 +375,56 @@
                                  props = feature.properties;
                                  // php para montar os ifs de cada layer
                                  <?php foreach ($camadas as $camada) : ?>
+
                                     ly_camada = '<?php echo $camada['mps03_ly_camada'] ?>';
                                     ly_camada = ly_camada.slice(ly_camada.indexOf(":")+1, ly_camada.length);
+                                    console.log(ly_camada);
 
                                     if(feature.id.slice(0, feature.id.indexOf('.')) == ly_camada) {
 
-                                        <?php $campos = find('mapsrv.mps06_campos', $camada['mps03_cd_camada'], 'mps06_cd_camada'); ?>
+                                        <?php $campos = findOrd( 'mapsrv.mps06_campos', $camada['mps03_cd_camada'], 'mps06_cd_camada', 'mps06_cd_ordem' ); ?>
+
 
                                         <?php if ($campos): ?>
-                                        document.getElementById('info').innerHTML += '<UL class="list-group"><LI class="list-group-item"><?php echo $camada['mps03_ds_legenda'];?></LI>';
+                                        titulo += '<li role="presentation"' + class_active + '><a id="nav-' + ly_camada + '" href="#' + ly_camada + '" aria-controls="' + ly_camada + '" role="tab" data-toggle="tab"><?php echo $camada['mps03_ds_legenda'];?></a></LI>';
+                                        corpo += '<div role="tabpanel" class="tab-pane fade' + active + '" id="' + ly_camada + '" aria-labelledby="' + ly_camada + '-tab">'
                                         <?php foreach ($campos as $campo) : ?>
 
-                                        nome_do_campo = props.<?php echo $campo['mps06_nm_campo'];?>;
-                                        document.getElementById('info').innerHTML += '<LI class="list-group-item"><small><B><?php echo $campo['mps06_lg_campo'] ?>:</B> '  + nome_do_campo + '<small></LI>';
+                                        console.log('Nome do campo: <?php echo $campo['mps06_nm_campo'];?>');
+
+                                        <?php if ($campo['mps06_tf_link']=='t') : ?>
+
+                                          nome_do_campo = '<a href="' + props.<?php echo $campo['mps06_nm_campo'];?> + '" target="_blank"> Link </a>';
+
+                                        <?php else: ?>
+
+                                          nome_do_campo = props.<?php echo $campo['mps06_nm_campo'];?>;
+
+                                        <?php endif; ?>
+                                        corpo += '<LI class="list-group-item"><small><a style="color: black; text-decoration: none" data-toggle="tooltip" data-placement="right" title="<?php echo $campo['mps06_ds_campo'];?>"><B><?php echo $campo['mps06_lg_campo'] ?>:</B></a> '  + nome_do_campo + '</small></LI>';
 
                                         <?php endforeach; ?>
                                         <?php else : ?>
-                                          console.log('No campos');
+                                          //console.log('No campos');
                                         <?php endif; ?>
+
+                                        corpo += '</div>'
 
                                     }
                                 <?php endforeach; ?>
 
-
+                               console.log(titulo + '</UL>' + corpo + '</div>');
+                               document.getElementById('info').innerHTML = titulo + '</ul>' + corpo + '</div>';
+                               active = '';
+                               class_active = '';
                              });
 
               }
               idlay = idlay + 1;
+
            });
-           document.getElementById('info').innerHTML += '</UL>';
+
+
          });
 
 

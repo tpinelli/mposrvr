@@ -6,8 +6,9 @@ $('#delete-modal').on('show.bs.modal', function (event) {
   var button = $(event.relatedTarget);
   var id = button.data('customer');
   var ord = button.data('ordem');
+  var cmd = button.data('cam');
 
   var modal = $(this);
 
-  modal.find('#confirm').attr('href', 'delete.php?id=' + id + '&ord=' + ord);
+  modal.find('#confirm').attr('href', 'delete.php?id=' + id + '&ord=' + ord + '&cam=' + cmd);
 })

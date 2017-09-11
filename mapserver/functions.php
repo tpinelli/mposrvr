@@ -47,12 +47,18 @@ function delete($id = null) {
 }
 
 function listAgrpd($id = null){
+	global $agrpd;
 	global $dsAgrpd;
 	if(!is_null($id)) {
-    $agrpd = find( 'mapsrv.mps05_agrpd', $id, 'mps05_cd_agrpd');
-	  return $agrpd['mps05_lg_agrpd'];
-	}
+    $agrpdores = find( 'mapsrv.mps05_agrpd', $id, 'mps05_cd_agrpd');
+		foreach ($agrpdores as $agrpd) :
+			$dsAgrpd = $agrpd['mps05_lg_agrpd'];
+		endforeach;
+
+		return $dsAgrpd;
+		}
 }
+
 
 
 ?>

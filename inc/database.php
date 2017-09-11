@@ -39,12 +39,7 @@ function find( $table = null, $id = null, $chave = null, $id2 = null, $chave2 = 
 	    $result = pg_query($database, $sql);
 
 	    if (pg_num_rows($result) > 0) {
-				if (pg_num_rows($result) == 1) {
-					$found = pg_fetch_array($result);
-				} else {
 					$found = pg_fetch_all($result);
-				}
-
 	    } else {
 				$_SESSION['message'] = 'Registro não encontrado.';
 		    $_SESSION['type'] = 'danger';
@@ -53,6 +48,45 @@ function find( $table = null, $id = null, $chave = null, $id2 = null, $chave2 = 
 	  } else {
 
 	    $sql = "SELECT * FROM " . $table;
+	    $result = pg_query($database, $sql);
+
+	    if (pg_num_rows($result) > 0) {
+	      $found = pg_fetch_all($result);
+	    }
+
+	  }
+	} catch (Exception $e) {
+	  $_SESSION['message'] = $e->GetMessage();
+	  $_SESSION['type'] = 'danger';
+  }
+
+	close_database($database);
+	return $found;
+}
+
+//função de busca com order by
+function findOrd( $table = null, $id = null, $chave = null, $ordem = null ) {
+
+	$database = open_database();
+	$found = null;
+
+
+	try {
+	  if ($id) {
+	    $sql = "SELECT * FROM " . $table . " WHERE " . $chave . "= '" . $id . "' ORDER BY " . $ordem;
+	    $result = pg_query($database, $sql);
+
+	    if (pg_num_rows($result) > 0) {
+					$found = pg_fetch_all($result);
+
+	    } else {
+				$_SESSION['message'] = 'Registro não encontrado.';
+		    $_SESSION['type'] = 'danger';
+			}
+
+	  } else {
+
+	    $sql = "SELECT * FROM " . $table . "' ORDER BY " . $ordem;
 	    $result = pg_query($database, $sql);
 
 	    if (pg_num_rows($result) > 0) {
@@ -362,6 +396,92 @@ function down_ordem($cd_prj = null, $nm_ordem_ant = 0, $cd_camada = 0){
     $_SESSION['type'] = 'danger';
   }
 
+}
+
+	/**
+	 *  troca a sobe a ordem de apresentação dos campos
+	 */
+
+	function up_ordem_campos($cd_camada = null, $nm_ordem_ant = 0, $cd_campo = 0){
+	  $database = open_database();
+	  $nm_ordem_atu = $nm_ordem_ant - 1;
+
+		$sql  = "UPDATE mapsrv.mps06_campos ";
+		$sql .= "SET mps06_cd_ordem = " . $nm_ordem_ant;
+		$sql .= " WHERE mps06_cd_camada = '" . $cd_camada . "'";
+		$sql .= "  AND mps06_cd_ordem =" . $nm_ordem_atu . ";";
+
+		try {
+	    $result = pg_query($database, $sql);
+	    $_SESSION['message'] = 'Registro atualizado com sucesso.';
+	    $_SESSION['type'] = 'success';
+	  } catch (Exception $e) {
+	    $_SESSION['message'] = 'Nao foi possivel realizar a operacao.';
+	    $_SESSION['type'] = 'danger';
+	  }
+
+
+	  $sql2  = "UPDATE mapsrv.mps06_campos ";
+		$sql2 .= "SET mps06_cd_ordem = " . $nm_ordem_atu;
+		$sql2 .= " WHERE mps06_id_campo = " . $cd_campo . ";";
+
+
+	  print 'SQL2='. $sql2;
+
+		try {
+	    $result = pg_query($database, $sql2);
+	    $_SESSION['message'] = 'Registro atualizado com sucesso.';
+	    $_SESSION['type'] = 'success';
+	  } catch (Exception $e) {
+	    $_SESSION['message'] = 'Nao foi possivel realizar a operacao.';
+	    $_SESSION['type'] = 'danger';
+	  }
+
+
+
+	  close_database($database);
+
+	}
+
+	/**
+	 *  troca a desce a ordem de apresentação dos campos
+	 */
+
+	function down_ordem_campo($cd_camada = null, $nm_ordem_ant = 0, $cd_campo = 0){
+	  $database = open_database();
+	  $nm_ordem_atu = $nm_ordem_ant + 1;
+
+		$sql  = "UPDATE mapsrv.mps06_campos ";
+		$sql .= "SET mps06_cd_ordem = " . $nm_ordem_ant;
+		$sql .= " WHERE mps06_cd_camada = '" . $cd_camada . "'";
+		$sql .= "  AND mps06_cd_ordem =" . $nm_ordem_atu . ";";
+
+	  print 'SQL1='. $sql;
+
+		try {
+	    $result = pg_query($database, $sql);
+	    $_SESSION['message'] = 'Registro atualizado com sucesso.';
+	    $_SESSION['type'] = 'success';
+	  } catch (Exception $e) {
+	    $_SESSION['message'] = 'Nao foi possivel realizar a operacao.';
+	    $_SESSION['type'] = 'danger';
+	  }
+
+		$sql2  = "UPDATE mapsrv.mps06_campos ";
+		$sql2 .= "SET mps06_cd_ordem = " . $nm_ordem_atu;
+		$sql2 .= " WHERE mps06_id_campo = " . $cd_campo . ";";
+
+	  print 'SQL2='. $sql2;
+
+		try {
+	    $result = pg_query($database, $sql2);
+	    $_SESSION['message'] = 'Registro atualizado com sucesso.';
+	    $_SESSION['type'] = 'success';
+	  } catch (Exception $e) {
+	    $_SESSION['message'] = 'Nao foi possivel realizar a operacao.';
+	    $_SESSION['type'] = 'danger';
+	  }
+
 
 
   close_database($database);
@@ -432,11 +552,46 @@ function delete_camprj( $cd_prj = null, $nm_ordem = null ) {
   close_database($database);
 }
 
+/**
+ *  Remove dados da tabela CAMPOS e altera a ordem
+ */
+function delete_campos( $id = null, $nm_ordem = null, $cd_camada = null ) {
+
+
+  try {
+      $customer = remove('mapsrv.mps06_campos', $id, 'mps06_id_campo');
+
+			$database2 = open_database();
+      $sql  = "UPDATE mapsrv.mps06_campos";
+			$sql .= "   SET mps06_cd_ordem = mps06_cd_ordem - 1";
+			$sql .= " WHERE mps06_cd_camada = " . $cd_camada ;
+			$sql .= "   AND mps06_cd_ordem > " . $nm_ordem . ";";
+
+
+			$result = pg_query($database2, $sql);
+
+			if($result) {
+				$_SESSION['message'] = 'Registro atualizado com sucesso.';
+		    $_SESSION['type'] = 'success';
+			} else {
+				$_SESSION['message'] = pg_last_error($database);
+				$_SESSION['type'] = 'danger';
+			}
+
+
+  } catch (Exception $e) {
+    $_SESSION['message'] = $e->GetMessage();
+    $_SESSION['type'] = 'danger';
+  }
+  close_database($database2);
+}
+
+
+// Função para limpeza de mensagens.
 function clear_messages() {
   $_SESSION['message'] = null;
 	$_SESSION['type'] = null;
 }
-
 
 
 ?>

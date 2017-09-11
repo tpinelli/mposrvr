@@ -34,7 +34,7 @@ function addAgrpd() {
 	if (!empty($_POST['agrpdSel'])) {
     $sel = $_POST['agrpdSel'];
 		$vlr = current($sel);
-	
+
 		if($vlr == 'NULL') {
 		  update_null('mapsrv.mps04_prj_cam', $_GET['mps01_cd_prj'], 'mps04_cd_agrpd', 'mps01_cd_prj', $_GET['cdAgrpd'], 'mps03_cd_camada');
 		} else {
@@ -50,11 +50,16 @@ function addAgrpd() {
 }
 
 function listAgrpd($id = null){
+	global $agrpd;
 	global $dsAgrpd;
 	if(!is_null($id)) {
-    $agrpd = find( 'mapsrv.mps05_agrpd', $id, 'mps05_cd_agrpd');
-	  return $agrpd['mps05_lg_agrpd'];
-	}
+		$agrpdores = find( 'mapsrv.mps05_agrpd', $id, 'mps05_cd_agrpd');
+		foreach ($agrpdores as $agrpd) :
+			$dsAgrpd = $agrpd['mps05_lg_agrpd'];
+		endforeach;
+
+		return $dsAgrpd;
+		}
 }
 
 

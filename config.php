@@ -10,7 +10,7 @@ define('DB_HOST', '192.168.100.204');
 /** porta do servidor de bd 8**/
 define('DB_PORT','5432');
 
-/** STRIG DE CONEXÃO UTILIZADA!!! **/
+/** STRING DE CONEXÃO **/
 define('DB_STRING', 'host='. DB_HOST . ' dbname=' . DB_NAME . ' port=' . DB_PORT . ' user=' . DB_USER . ' password=' . DB_PASSWORD);
 
 /** caminho absoluto para a pasta do sistema **/

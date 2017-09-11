@@ -35,7 +35,7 @@
 		<th>Legenda</th>
     <th>URL-WS</th>
     <th>Layer</th>
-		<th width="15%">Opções</th>
+		<th width="18%">Opções</th>
 	</tr>
 </thead>
 <tbody>
@@ -48,6 +48,7 @@
     <td><?php echo $camada['mps03_ur_camada']; ?></td>
     <td><?php echo $camada['mps03_ly_camada']; ?></td>
 		<td class="actions text-right">
+      <a href="/campos/index.php?mps03_cd_camada=<?php echo $camada['mps03_cd_camada'];?>" class="btn btn-sm btn-default"><i class="fa fa-plus-square-o"></i></a>
 			<a href="edit.php?mps03_cd_camada=<?php echo $camada['mps03_cd_camada']; ?>" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i> Editar</a>
 			<a href="#" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete-modal" data-customer="<?php echo $camada['mps03_cd_camada']; ?>">
 				<i class="fa fa-trash"></i> Excluir
