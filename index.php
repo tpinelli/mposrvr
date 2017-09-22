@@ -18,19 +18,19 @@ require_once('config.php');
   <!-- Linha de três colunas -->
   <div class="row">
     <div class="col-md-4">
-      <img src="/imagens/teamwork_logo.png" >
+      <img src="<?php echo BASEURL; ?>/imagens/teamwork_logo.png" >
       <h3>Teamwork</h3>
       <p>Esta é a nossa ferramenta de gestão de projetos, utilizada para o acompanhamento de atividades e lançamentos de horas. </p>
       <p><a class="btn btn-primary" href="https://vallenge.eu.teamwork.com" role="button">Acessar &raquo;</a></p>
     </div>
     <div class="col-md-4">
-      <img src="/imagens/geoserver_logo.png">
+      <img src="<?php echo BASEURL; ?>/imagens/geoserver_logo.png">
       <h3>GeoServer</h3>
       <p>O GeoServer é um servidor projetado para interoperabilidade, ele publica dados de qualquer fonte de dados espaciais principais usando padrões abertos. </p>
       <p><a class="btn btn-primary" href="http://192.168.100.211:8080/geoserver/web/" role="button">Acessar &raquo;</a></p>
     </div>
     <div class="col-md-4">
-      <img src="/imagens/srv-info.png">
+      <img src="<?php echo BASEURL; ?>/imagens/srv-info.png">
       <h3>ServerTest</h3>
       <p>Área reservada para a equipe de desenvolvimento da Mapio efetuar os testes apropriados no MAPIOSRV. Apontado para o PHP-INFO.</p>
       <p><a class="btn btn-primary" href="phpteste.php" role="button">Testar &raquo;</a></p>

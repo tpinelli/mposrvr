@@ -12,8 +12,8 @@
 <script src="<?php echo BASEURL; ?>js/bootstrap.min.js"></script>
 
 
-<script src="/js/main.js"></script>
-<script src="/js/tab.js"></script>
+<script src="<?php echo BASEURL; ?>/js/main.js"></script>
+<script src="<?php echo BASEURL; ?>/js/tab.js"></script>
 
 </body>
 </html>

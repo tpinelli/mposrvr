@@ -7,8 +7,8 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="<?php echo BASEURL; ?>/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?php echo BASEURL; ?>/css/bootstrap.css">
 
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous"> -->
     <link rel="stylesheet" href="/css/custom.css">
@@ -82,7 +82,7 @@
             </li>
           </ul>
 
-          <img src="/imagens/mpobc_semfundo.png" class="float-right center-block" alt="logo_mapio">
+          <img src="<?php echo BASEURL; ?>/imagens/mpobc_semfundo.png" class="float-right center-block" alt="logo_mapio">
 
         </div><!--/.navbar-collapse -->
 

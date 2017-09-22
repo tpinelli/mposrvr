@@ -5,9 +5,9 @@
 
 <?php include(HEADER_TEMPLATE); ?>
 
-<link rel="stylesheet" href="/css/layout.css" type="text/css">
+<link rel="stylesheet" href="<?php echo BASEURL; ?>/css/layout.css" type="text/css">
 <!-- <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css"> -->
-<link rel="stylesheet" href="/css/gerais.css" type="text/css">
+<link rel="stylesheet" href="<?php echo BASEURL; ?>/css/gerais.css" type="text/css">
 
 <header>
 	<div class="row">
