@@ -30,15 +30,31 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 
 <link rel="stylesheet" href="/css/ol.css">
+<link rel="stylesheet" href="https://openlayers.org/en/v4.3.1/css/ol.css" type="text/css">
+<!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
+<script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
+<script src="https://openlayers.org/en/v4.3.1/build/ol.js"></script>
+<script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+<script src="/js/reqwest.js"></script>
+<script src="/js/FileSaver.js"></script>
+
+<!-- scripts do geocoder -->
+<link href="//cdn.jsdelivr.net/openlayers.geocoder/latest/ol3-geocoder.min.css" rel="stylesheet">
+<script src="//cdn.jsdelivr.net/openlayers.geocoder/latest/ol3-geocoder.js"></script>
+
 <style type="text/css">
   body { overflow: hidden; }
 
   .navbar-offset { margin-top: 10px; }
   #map { position: absolute; top: 50px; bottom: 0px; left: 0px; right: 0px; }
   #map .ol-zoom { font-size: 1.2em; left: 20px; }
+  #map .ol-geocoder { font-size: 1.054em; left: 20px; }
 
   .zoom-top-opened-sidebar { margin-top: 5px; }
   .zoom-top-collapsed { margin-top: 45px;}
+
+  .geoc-top-opened-sidebar { margin-top: 15px; }
+  .geoc-top-collapsed { margin-top: 55px;}
 
   .mini-submenu{
     display:none;
@@ -77,14 +93,20 @@
     cursor: pointer;
   }
 
+  #map .ol-geocoder ul.gcd-gl-result > li {
+    border-bottom: 0px;
+    line-height: 1.3rem;}
+
+  #map .ol-geocoder ul.gcd-gl-result > li:nth-child(odd) {
+    background-color: #f4fafd; }
+
+  #map   .ol-geocoder ul.gcd-gl-result {
+    top: 2.3em;
+    left: 2.3em;}
+
+
+
 </style>
-<link rel="stylesheet" href="https://openlayers.org/en/v4.3.1/css/ol.css" type="text/css">
-<!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
-<script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
-<script src="https://openlayers.org/en/v4.3.1/build/ol.js"></script>
-<script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
-<script src="/js/reqwest.js"></script>
-<script src="/js/FileSaver.js"></script>
 
 
 <script type="text/javascript">
@@ -97,11 +119,19 @@
         .css("margin-left", 0)
         .removeClass("zoom-top-opened-sidebar")
         .addClass("zoom-top-collapsed");
+      $("#map .ol-geocoder")
+        .css("margin-left", 0)
+        .removeClass("geoc-top-opened-sidebar")
+        .addClass("geoc-top-collapsed");
     } else {
       $("#map .ol-zoom")
         .css("margin-left", $(".sidebar-left").width())
         .removeClass("zoom-top-opened-sidebar")
         .removeClass("zoom-top-collapsed");
+      $("#map .ol-geocoder")
+        .css("margin-left", $(".sidebar-left").width())
+        .removeClass("geoc-top-opened-sidebar")
+        .removeClass("geoc-top-collapsed");
     }
   }
 
@@ -204,14 +234,17 @@
                </div>
              </div>
            </div>
+
+           <BR>
+           <!-- botão de download png -->
+           <div class="pull-left main-btn">
+            <a id="export-png" class="btn btn-default" download="map.png"><i class="fa fa-download"></i> Download PNG</a>
+          </div>
+
          </div>
        </div>
      </div>
 
-     <!-- botão de download png -->
-     <div class="pull-left main-btn">
-      <a id="export-png" class="btn btn-default" download="map.png"><i class="fa fa-download"></i> Download PNG</a>
-    </div>
 
 
      <!-- div com menu encolhido -->
@@ -271,8 +304,28 @@
                                              zoom: 12
                                             })
                         });
+
    applyInitialUIState();
    applyMargins();
+
+   // teste do geocoder
+
+
+
+  //Instantiate with some options and add the Control
+  var geocoder = new Geocoder('nominatim',
+  {
+        provider: 'bing',
+        key: '<?php echo BING_API; ?>',
+        lang: 'en',
+        placeholder: 'Pesquisar Endereço...',
+        limit: 5,
+        debug: false,
+        autocomplete: true,
+        keepOpen: true
+  });
+
+  map.addControl(geocoder);
 
   /*
    var exportPNGElement = document.getElementById('export-png');
@@ -327,7 +380,10 @@
      $('#myTabs a').click(function (e) {
         e.preventDefault()
         $(this).tab('show')
-     })
+     });
+
+     $("#map .ol-geocoder")
+       .css("margin-left", $(".sidebar-left").width());
 
 
    });
@@ -432,6 +488,6 @@
 
    </script>
 
-
+<?php clear_messages(); ?>
 
 <?php include(FOOTER_TEMPLATE); ?>

@@ -30,7 +30,9 @@ function edit() {
       header('location: index.php');
     } else {
       global $camada;
-      $camada = find('mapsrv.mps03_camadas', $id, 'mps03_cd_camada');
+			$camadas = null;
+      $camadas = find('mapsrv.mps03_camadas', $id, 'mps03_cd_camada');
+			$camada = $camadas[0];
     }
   } else {
     header('location: index.php');

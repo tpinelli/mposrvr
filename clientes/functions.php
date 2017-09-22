@@ -29,8 +29,10 @@ function edit() {
       update('mapsrv.mps02_clientes', $id, $customer, 'mps02_cd_cli');
       header('location: index.php');
     } else {
-      global $customer;
-      $customer = find('mapsrv.mps02_clientes', $id, 'mps02_cd_cli');
+      global $customers;
+			global $customer;
+      $customers = find('mapsrv.mps02_clientes', $id, 'mps02_cd_cli');
+			$customer = $customers[0];
     }
   } else {
     header('location: index.php');

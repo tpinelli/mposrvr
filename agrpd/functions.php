@@ -29,8 +29,10 @@ function edit() {
       update('mapsrv.mps05_agrpd', $id, $agrpd, 'mps05_cd_agrpd');
       header('location: index.php');
     } else {
-      global $agrpd;
-      $agrpd = find('mapsrv.mps05_agrpd', $id, 'mps05_cd_agrpd');
+      global $agrpds;
+			global $agrpd;
+      $agrpds = find('mapsrv.mps05_agrpd', $id, 'mps05_cd_agrpd');
+			$agrpd = $agrpds[0];
     }
   } else {
     header('location: index.php');

@@ -30,7 +30,9 @@ function edit() {
       header('location: index.php');
     } else {
       global $project;
-      $project = find('mapsrv.mps01_projetos', $id, 'mps01_cd_prj');
+
+      $projects = find('mapsrv.mps01_projetos', $id, 'mps01_cd_prj');
+			$project = $projects[0];
     }
   } else {
     header('location: index.php');
