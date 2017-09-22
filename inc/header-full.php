@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="<?php echo BASEURL; ?>/css/bootstrap.css">
 
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous"> -->
-    <link rel="stylesheet" href="/css/custom.css">
+    <link rel="stylesheet" href="<?php echo BASEURL; ?>/css/custom.css">
 
 
 
@@ -35,12 +35,12 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a href="<?php echo BASEURL; ?>index.php" class="navbar-brand" style="font-weight: bold;"> MAPIOSRV&nbsp;</a>
+          <a href="<?php echo BASEURL; ?>/index.php" class="navbar-brand" style="font-weight: bold;"> MAPIOSRV&nbsp;</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse center-block">
           <ul class="nav navbar-nav">
             <li class="dropdown">
-                <a href="<?php echo BASEURL; ?>mapserver" class="dropdown-toggle"  role="button" aria-expanded="false">
+                <a href="<?php echo BASEURL; ?>/mapserver" class="dropdown-toggle"  role="button" aria-expanded="false">
                     Visualizar Mapas
                 </a>
             </li>
@@ -49,8 +49,8 @@
                     Projetos <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="<?php echo BASEURL; ?>projetos">Gerenciar Projetos</a></li>
-                    <li><a href="<?php echo BASEURL; ?>projetos/add.php">Novo Projeto</a></li>
+                    <li><a href="<?php echo BASEURL; ?>/projetos">Gerenciar Projetos</a></li>
+                    <li><a href="<?php echo BASEURL; ?>/projetos/add.php">Novo Projeto</a></li>
                 </ul>
             </li>
             <li class="dropdown">
@@ -58,8 +58,8 @@
                     Clientes <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="<?php echo BASEURL; ?>clientes">Gerenciar Clientes</a></li>
-                    <li><a href="<?php echo BASEURL; ?>clientes/add.php">Novo Cliente</a></li>
+                    <li><a href="<?php echo BASEURL; ?>/clientes">Gerenciar Clientes</a></li>
+                    <li><a href="<?php echo BASEURL; ?>/clientes/add.php">Novo Cliente</a></li>
                 </ul>
             </li>
             <li class="dropdown">
@@ -67,8 +67,8 @@
                     Camadas <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="<?php echo BASEURL; ?>camadas">Gerenciar Camadas</a></li>
-                    <li><a href="<?php echo BASEURL; ?>camadas/add.php">Nova Camada</a></li>
+                    <li><a href="<?php echo BASEURL; ?>/camadas">Gerenciar Camadas</a></li>
+                    <li><a href="<?php echo BASEURL; ?>/camadas/add.php">Nova Camada</a></li>
                 </ul>
             </li>
             <li class="dropdown">
@@ -76,8 +76,8 @@
                     Agrupadores <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="<?php echo BASEURL; ?>agrpd">Gerenciar Agrupadores</a></li>
-                    <li><a href="<?php echo BASEURL; ?>agrpd/add.php">Novo Agrupador</a></li>
+                    <li><a href="<?php echo BASEURL; ?>/agrpd">Gerenciar Agrupadores</a></li>
+                    <li><a href="<?php echo BASEURL; ?>/agrpd/add.php">Novo Agrupador</a></li>
                 </ul>
             </li>
           </ul>

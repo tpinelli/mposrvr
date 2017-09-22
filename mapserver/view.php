@@ -30,7 +30,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 
 <link rel="stylesheet" href="<?php echo BASEURL; ?>/css/ol.css">
-<link rel="stylesheet" href="https://openlayers.org/en/v4.3.1/css/ol.css" type="text/css">
 <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
 <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
 <script src="https://openlayers.org/en/v4.3.1/build/ol.js"></script>

@@ -6,7 +6,6 @@
 <?php include(HEADER_TEMPLATE); ?>
 
 <link rel="stylesheet" href="<?php echo BASEURL; ?>/css/layout.css" type="text/css">
-<!-- <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css"> -->
 <link rel="stylesheet" href="<?php echo BASEURL; ?>/css/gerais.css" type="text/css">
 
 <header>
@@ -56,6 +55,7 @@
 		<td colspan="6">Nenhum registro encontrado.</td>
 	</tr>
 <?php endif; ?>
+</div></div></div>
 </tbody>
 </table>
 
